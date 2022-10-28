@@ -46,7 +46,7 @@ jobs:
       with:
         status: ${{ job.status }}
         author_name: Github Action Ci Test
-        fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
+        fields: repo, message, commit, author, action, eventName, ref, workflow, job, took, pullRequest
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
       if: always()
