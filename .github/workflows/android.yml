@@ -36,11 +36,17 @@ jobs:
       
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Run ktlint
-      run: ./gradlew ktlintCheck
-    - name: Run detekt
-      run: ./gradlew detekt
     - name: Run unit tests
       run: ./gradlew testDebugUnitTest
     - name: Build with Gradle
       run: ./gradlew build
+      
+    - name: action-slack
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        author_name: Github Action Ci Test
+        fields: repo, message, commit, author, action, eventName, ref, workflow, job, took
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+      if: always()
